@@ -173,6 +173,9 @@ insert into sys_menu values('110',  '定时任务', '2', '2', '/monitor/job',   
 insert into sys_menu values('111',  '数据监控', '2', '3', '/monitor/data',         '', 'C', '0', '1', 'monitor:data:view',        'fa fa-bug',             'admin', sysdate(), '', null, '数据监控菜单');
 insert into sys_menu values('112',  '服务监控', '2', '4', '/monitor/server',       '', 'C', '0', '1', 'monitor:server:view',      'fa fa-server',          'admin', sysdate(), '', null, '服务监控菜单');
 insert into sys_menu values('113',  '缓存监控', '2', '5', '/monitor/cache',        '', 'C', '0', '1', 'monitor:cache:view',       'fa fa-cube',            'admin', sysdate(), '', null, '缓存监控菜单');
+insert into sys_menu values('117',  '用户操作统计', '2', '6', '/monitor/userstat',    '', 'C', '0', '1', 'monitor:userstat:view',    'fa fa-bar-chart',       'admin', sysdate(), '', null, '用户操作统计菜单');
+-- 用户操作统计按钮
+insert into sys_menu values('1062', '统计查询', '117', '1',  '#', '',  'F', '0', '1', 'monitor:userstat:list',    '#', 'admin', sysdate(), '', null, '');
 insert into sys_menu values('114',  '表单构建', '3', '1', '/tool/build',           '', 'C', '0', '1', 'tool:build:view',          'fa fa-wpforms',         'admin', sysdate(), '', null, '表单构建菜单');
 insert into sys_menu values('115',  '代码生成', '3', '2', '/tool/gen',             '', 'C', '0', '1', 'tool:gen:view',            'fa fa-code',            'admin', sysdate(), '', null, '代码生成菜单');
 insert into sys_menu values('116',  '系统接口', '3', '3', '/tool/swagger',         '', 'C', '0', '1', 'tool:swagger:view',        'fa fa-gg',              'admin', sysdate(), '', null, '系统接口菜单');

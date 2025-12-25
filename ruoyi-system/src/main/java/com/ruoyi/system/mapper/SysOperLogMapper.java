@@ -1,7 +1,11 @@
 package com.ruoyi.system.mapper;
 
 import java.util.List;
+import java.util.Map;
 import com.ruoyi.system.domain.SysOperLog;
+import com.ruoyi.system.domain.dto.UserOperationCountDTO;
+import com.ruoyi.system.domain.dto.UserModuleDTO;
+import com.ruoyi.system.domain.dto.OperationTimeDistributionDTO;
 
 /**
  * 操作日志 数据层
@@ -45,4 +49,28 @@ public interface SysOperLogMapper
      * 清空操作日志
      */
     public void cleanOperLog();
+    
+    /**
+     * 查询用户操作次数排行（Top 10）
+     * 
+     * @param params 查询参数
+     * @return 用户操作次数排行列表
+     */
+    public List<UserOperationCountDTO> selectUserOperationCountTop10(Map<String, Object> params);
+    
+    /**
+     * 查询用户常用模块统计
+     * 
+     * @param params 查询参数
+     * @return 用户常用模块统计列表
+     */
+    public List<UserModuleDTO> selectUserModuleStatistics(Map<String, Object> params);
+    
+    /**
+     * 查询操作时间段分布统计
+     * 
+     * @param params 查询参数
+     * @return 操作时间段分布统计列表
+     */
+    public List<OperationTimeDistributionDTO> selectOperationTimeDistribution(Map<String, Object> params);
 }

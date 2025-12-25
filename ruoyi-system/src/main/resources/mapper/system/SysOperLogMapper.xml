@@ -82,5 +82,60 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="cleanOperLog">
         truncate table sys_oper_log
     </update>
+    
+    <!-- 查询用户操作次数排行（Top 10） -->
+    <select id="selectUserOperationCountTop10" parameterType="map" resultType="com.ruoyi.system.domain.dto.UserOperationCountDTO">
+        SELECT 
+            oper_name as operName,
+            COUNT(*) as totalCount,
+            MAX(oper_time) as lastOperTime
+        FROM sys_oper_log
+        WHERE 1=1
+        <if test="beginTime != null and beginTime != ''">
+            AND oper_time &gt;= #{beginTime}
+        </if>
+        <if test="endTime != null and endTime != ''">
+            AND oper_time &lt;= #{endTime}
+        </if>
+        GROUP BY oper_name
+        ORDER BY totalCount DESC
+        LIMIT 10
+    </select>
+    
+    <!-- 查询用户常用模块统计 -->
+    <select id="selectUserModuleStatistics" parameterType="map" resultType="com.ruoyi.system.domain.dto.UserModuleDTO">
+        SELECT 
+            oper_name as operName,
+            title,
+            COUNT(*) as count
+        FROM sys_oper_log
+        WHERE 1=1
+        <if test="beginTime != null and beginTime != ''">
+            AND oper_time &gt;= #{beginTime}
+        </if>
+        <if test="endTime != null and endTime != ''">
+            AND oper_time &lt;= #{endTime}
+        </if>
+        AND title IS NOT NULL AND title != ''
+        GROUP BY oper_name, title
+        ORDER BY oper_name, count DESC
+    </select>
+    
+    <!-- 查询操作时间段分布统计 -->
+    <select id="selectOperationTimeDistribution" parameterType="map" resultType="com.ruoyi.system.domain.dto.OperationTimeDistributionDTO">
+        SELECT 
+            DATE(oper_time) as date,
+            COUNT(*) as count
+        FROM sys_oper_log
+        WHERE 1=1
+        <if test="beginTime != null and beginTime != ''">
+            AND oper_time &gt;= #{beginTime}
+        </if>
+        <if test="endTime != null and endTime != ''">
+            AND oper_time &lt;= #{endTime}
+        </if>
+        GROUP BY DATE(oper_time)
+        ORDER BY date ASC
+    </select>
 
 </mapper> 
