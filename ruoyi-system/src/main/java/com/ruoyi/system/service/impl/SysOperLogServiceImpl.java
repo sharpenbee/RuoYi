@@ -1,6 +1,7 @@
 package com.ruoyi.system.service.impl;
 
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.common.core.text.Convert;
@@ -73,5 +74,23 @@ public class SysOperLogServiceImpl implements ISysOperLogService
     public void cleanOperLog()
     {
         operLogMapper.cleanOperLog();
+    }
+
+    @Override
+    public List<Map<String, Object>> selectUserOperRank(SysOperLog operLog)
+    {
+        return operLogMapper.selectUserOperRank(operLog);
+    }
+
+    @Override
+    public List<Map<String, Object>> selectUserCommonModule(SysOperLog operLog)
+    {
+        return operLogMapper.selectUserCommonModule(operLog);
+    }
+
+    @Override
+    public List<Map<String, Object>> selectOperTimeDistribution(SysOperLog operLog)
+    {
+        return operLogMapper.selectOperTimeDistribution(operLog);
     }
 }

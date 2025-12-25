@@ -82,5 +82,51 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="cleanOperLog">
         truncate table sys_oper_log
     </update>
+    
+    <!-- 查询用户操作次数排行（Top 10） -->
+    <select id="selectUserOperRank" parameterType="SysOperLog" resultType="java.util.Map">
+        <include refid="selectOperLogVo"/>
+        <where>
+            <if test="params.beginTime != null and params.beginTime != ''">
+                AND oper_time &gt;= #{params.beginTime}
+            </if>
+            <if test="params.endTime != null and params.endTime != ''">
+                AND oper_time &lt;= #{params.endTime}
+            </if>
+        </where>
+        GROUP BY oper_name
+        ORDER BY COUNT(oper_id) DESC
+        LIMIT 10
+    </select>
+    
+    <!-- 查询用户常用模块统计 -->
+    <select id="selectUserCommonModule" parameterType="SysOperLog" resultType="java.util.Map">
+        <include refid="selectOperLogVo"/>
+        <where>
+            <if test="params.beginTime != null and params.beginTime != ''">
+                AND oper_time &gt;= #{params.beginTime}
+            </if>
+            <if test="params.endTime != null and params.endTime != ''">
+                AND oper_time &lt;= #{params.endTime}
+            </if>
+        </where>
+        GROUP BY oper_name, title
+        ORDER BY COUNT(oper_id) DESC
+    </select>
+    
+    <!-- 查询操作时间段分布 -->
+    <select id="selectOperTimeDistribution" parameterType="SysOperLog" resultType="java.util.Map">
+        <include refid="selectOperLogVo"/>
+        <where>
+            <if test="params.beginTime != null and params.beginTime != ''">
+                AND oper_time &gt;= #{params.beginTime}
+            </if>
+            <if test="params.endTime != null and params.endTime != ''">
+                AND oper_time &lt;= #{params.endTime}
+            </if>
+        </where>
+        GROUP BY DATE_FORMAT(oper_time, '%Y-%m-%d')
+        ORDER BY DATE_FORMAT(oper_time, '%Y-%m-%d')
+    </select>
 
 </mapper> 
