@@ -91,13 +91,13 @@
 		});
 
 		// 初始化日期范围（默认最近30天）
-		function initDateRange() {
+        function initDateRange() {
 			var endTime = new Date();
 			var startTime = new Date();
 			startTime.setDate(endTime.getDate() - 30);
 			
-			$('#startTime').val(startTime.format('yyyy-MM-dd'));
-			$('#endTime').val(endTime.format('yyyy-MM-dd'));
+			$('#startTime').val($.common.dateFormat(startTime, 'yyyy-MM-dd'));
+			$('#endTime').val($.common.dateFormat(endTime, 'yyyy-MM-dd'));
 		}
 
 		// 加载用户操作次数排行

@@ -85,7 +85,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <!-- 查询用户操作次数排行（Top 10） -->
     <select id="selectUserOperRank" parameterType="SysOperLog" resultType="java.util.Map">
-        <include refid="selectOperLogVo"/>
+        SELECT oper_name AS operName, COUNT(oper_id) AS count, MAX(oper_time) AS lastOperTime
+        FROM sys_oper_log
         <where>
             <if test="params.beginTime != null and params.beginTime != ''">
                 AND oper_time &gt;= #{params.beginTime}
@@ -101,7 +102,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <!-- 查询用户常用模块统计 -->
     <select id="selectUserCommonModule" parameterType="SysOperLog" resultType="java.util.Map">
-        <include refid="selectOperLogVo"/>
+        SELECT oper_name AS operName, title, COUNT(oper_id) AS count
+        FROM sys_oper_log
         <where>
             <if test="params.beginTime != null and params.beginTime != ''">
                 AND oper_time &gt;= #{params.beginTime}
@@ -116,7 +118,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <!-- 查询操作时间段分布 -->
     <select id="selectOperTimeDistribution" parameterType="SysOperLog" resultType="java.util.Map">
-        <include refid="selectOperLogVo"/>
+        SELECT DATE_FORMAT(oper_time, '%Y-%m-%d') AS date, COUNT(oper_id) AS count
+        FROM sys_oper_log
         <where>
             <if test="params.beginTime != null and params.beginTime != ''">
                 AND oper_time &gt;= #{params.beginTime}
